@@ -26,7 +26,7 @@ use KosovoPay\Resources\WebhookEndpointsResource;
  */
 final class KosovoPay
 {
-    public const VERSION = '1.1.0';
+    public const VERSION = '1.1.1';
 
     private readonly Connector $connector;
 

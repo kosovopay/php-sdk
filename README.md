@@ -4,6 +4,8 @@
 
 **The official, strongly-typed PHP client for the [KosovoPay](https://kosovo.sh) payment API.**
 
+📖 **API reference:** https://pay.kosovo.sh/docs
+
 Built on [Saloon v3](https://docs.saloon.dev) · PHPStan level max · 100% typed request & response objects
 
 [![PHP Version](https://img.shields.io/badge/php-%E2%89%A58.2-777BB4)](https://www.php.net/)

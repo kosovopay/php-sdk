@@ -8,7 +8,7 @@
     "support": {
         "issues": "https://github.com/kosovopay/php-sdk/issues",
         "source": "https://github.com/kosovopay/php-sdk",
-        "docs": "https://api.kosovo.sh/docs"
+        "docs": "https://pay.kosovo.sh/docs"
     },
     "authors": [
         {
