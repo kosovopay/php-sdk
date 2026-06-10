@@ -9,7 +9,7 @@ Built on [Saloon v3](https://docs.saloon.dev) · PHPStan level max · 100% typed
 [![PHP Version](https://img.shields.io/badge/php-%E2%89%A58.2-777BB4)](https://www.php.net/)
 [![Static Analysis](https://img.shields.io/badge/PHPStan-level%20max-2a2a2a)](https://phpstan.org/)
 [![Code Style](https://img.shields.io/badge/code%20style-Pint-FF2D20)](https://laravel.com/docs/pint)
-[![License](https://img.shields.io/badge/license-MIT-3da639)](LICENSE)
+[![License](https://img.shields.io/badge/license-KosovoPay%201.0-3da639)](LICENSE)
 
 </div>
 
@@ -784,4 +784,6 @@ The codebase is held to **PHPStan level max with zero suppressions** — no `@ph
 
 ## License
 
-Released under the [MIT License](LICENSE).
+**KosovoPay License 1.0** — free to use, including commercially, at no charge.
+Modifying, forking, redistributing, or reverse-engineering the SDK is **not**
+permitted; it is maintained solely by KosovoPay. See [LICENSE](LICENSE).
