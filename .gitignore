@@ -1,0 +1,12 @@
+/vendor/
+/composer.lock
+/.phpunit.cache/
+.phpunit.result.cache
+composer.phar
+.DS_Store
+.idea/
+.vscode/
+
+# Local-only release helper (personal; not shared with the org)
+/Makefile
+*.bak

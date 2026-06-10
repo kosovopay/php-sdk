@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*.*.*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to (re)release, e.g. v1.0.1'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Validate & publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Resolve tag
+        id: tag
+        run: echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout ${{ steps.tag.outputs.tag }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.tag.outputs.tag }}
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: bcmath, mbstring
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --prefer-dist
+
+      - name: Quality gate
+        run: |
+          composer validate --strict
+          vendor/bin/pint --test
+          vendor/bin/phpstan analyse --no-progress
+          vendor/bin/pest --ci
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          if gh release view "${TAG}" >/dev/null 2>&1; then
+            echo "Release ${TAG} already exists — skipping creation."
+          else
+            gh release create "${TAG}" \
+              --title "${TAG}" \
+              --generate-notes \
+              --verify-tag
+          fi
+
+      - name: Notify Packagist (publish new version)
+        env:
+          PACKAGIST_USERNAME: ${{ secrets.PACKAGIST_USERNAME }}
+          PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
+        run: |
+          if [ -n "${PACKAGIST_TOKEN}" ]; then
+            curl -sf -XPOST -H 'content-type:application/json' \
+              "https://packagist.org/api/update-package?username=${PACKAGIST_USERNAME}&apiToken=${PACKAGIST_TOKEN}" \
+              -d '{"repository":{"url":"https://github.com/kosovopay/php-sdk"}}' \
+              && echo "Packagist notified."
+          else
+            echo "PACKAGIST_TOKEN secret not set — relying on the Packagist GitHub App for auto-sync."
+          fi

@@ -1,0 +1,58 @@
+{
+    "name": "kosovopay/php-sdk",
+    "description": "Strongly-typed PHP client for the KosovoPay payment orchestrator API.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://kosovo.sh",
+    "keywords": ["kosovopay", "payments", "sdk", "saloon", "api"],
+    "support": {
+        "issues": "https://github.com/kosovopay/php-sdk/issues",
+        "source": "https://github.com/kosovopay/php-sdk",
+        "docs": "https://api.kosovo.sh/docs"
+    },
+    "authors": [
+        {
+            "name": "KosovoPay",
+            "email": "developers@kosovo.sh",
+            "homepage": "https://kosovo.sh"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "saloonphp/saloon": "^3.0",
+        "saloonphp/pagination-plugin": "^2.0",
+        "symfony/uid": "^6.0 || ^7.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.29",
+        "pestphp/pest": "^3.0",
+        "phpstan/phpstan": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "KosovoPay\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KosovoPay\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "sort-packages": true,
+        "audit": {
+            "ignore": ["PKSA-xnj5-w74d-6wmz", "PKSA-rnpm-45mg-w6ht", "PKSA-5szq-gvrg-ttfq"]
+        }
+    },
+    "scripts": {
+        "test": "pest",
+        "stan": "phpstan analyse --memory-limit=512M",
+        "lint": "pint --test",
+        "fix": "pint"
+    }
+}
