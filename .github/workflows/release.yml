@@ -13,6 +13,10 @@ on:
 permissions:
   contents: write
 
+env:
+  # Run JS-based actions on Node 24 (Node 20 is deprecated on the runners).
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   release:
     name: Validate & publish
@@ -24,7 +28,7 @@ jobs:
         run: echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
 
       - name: Checkout ${{ steps.tag.outputs.tag }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ steps.tag.outputs.tag }}
           fetch-depth: 0
